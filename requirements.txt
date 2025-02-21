@@ -1,0 +1,28 @@
+# Core Data Science Libraries
+pandas
+numpy
+scipy
+matplotlib
+seaborn
+statsmodels
+
+# Time Series & Bayesian Inference
+pymc3
+arch
+
+# Backend (Flask API)
+flask
+flask-cors
+
+# API & Web Requests
+requests
+gunicorn  # Production WSGI Server
+
+# Jupyter Notebook (for development)
+jupyterlab
+notebook
+
+# Machine Learning (Optional)
+tensorflow
+scikit-learn
+
