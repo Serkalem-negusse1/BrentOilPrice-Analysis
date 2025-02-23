@@ -16,7 +16,7 @@ const Dashboard = () => {
       } catch (error) {
         console.error("Error fetching historical prices:", error);
       }
-    };
+    }; 
 
     const fetchChangePoints = async () => {
       try {
