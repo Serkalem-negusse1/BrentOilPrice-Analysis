@@ -26,7 +26,7 @@ def generate_forecasts(input_path, output_path):
     arima_model = train_arima_model(df['Price'])
     arima_forecast = arima_model.forecast(steps=30)
 
-    # Train GARCH model
+    # Train GARCH model 
     garch_model = train_garch_model(df['Price'])
     garch_forecast = np.sqrt(garch_model.forecast(start=len(df)-30).variance.values[-30:].squeeze())
     #garch_forecast = garch_model.forecast(start=len(df)-30).variance.values[-30:]
