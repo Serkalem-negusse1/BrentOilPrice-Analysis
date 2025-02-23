@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template_string
 from flask_cors import CORS
 import pandas as pd
 import json
@@ -19,6 +19,77 @@ events_df["Date"] = events_df["Date"].dt.strftime('%Y-%m-%d')
 # Load detected change points
 with open("E:/Git_repo/BrentOilPrice-Analysis/results/change_points.json", "r") as file:
     change_points = json.load(file)
+
+@app.route("/")
+def index():
+    """Root endpoint to serve the front-end interface."""
+    return render_template_string("""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detecting Change Points in Oil Prices Using Bayesian Inference</title>
+        <style>
+            body { font-family: Arial, sans-serif; padding: 20px; background-color: #f5f7fa; }
+            h1 { color: #4b8d99; font-size: 36px; text-align: center; margin-bottom: 20px; }
+            p { font-size: 18px; color: #555; text-align: center; }
+            .api-links {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                justify-items: center;
+                margin-top: 20px;
+            }
+            .api-link {
+                padding: 15px 30px;
+                background-color: #007BFF;
+                color: white;
+                font-size: 18px;
+                text-decoration: none;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+            .api-link:hover {
+                background-color: #0056b3;
+                transform: translateY(-3px);
+            }
+            .endpoint { margin-top: 30px; padding: 15px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); }
+            pre { white-space: pre-wrap; word-wrap: break-word; background-color: #f4f4f9; padding: 20px; border-radius: 8px; }
+        </style>
+    </head>
+    <body>
+        <h1>Detecting Change Points in Oil Prices Using Bayesian Inference</h1>
+                                  Prepared by: Serkalem Negusse
+        <p>Click on the links below to access the API data:</p>
+        <div class="api-links">
+            <a href="#" class="api-link" onclick="fetchData('historical_prices')">Historical Prices</a>
+            <a href="#" class="api-link" onclick="fetchData('forecast')">Forecast</a>
+            <a href="#" class="api-link" onclick="fetchData('change_points')">Change Points</a>
+            <a href="#" class="api-link" onclick="fetchData('event_impact')">Event Impact</a>
+        </div>
+
+        <div class="endpoint" id="endpoint-content">
+            <h2>Data will appear here</h2>
+        </div>
+
+        <script>
+            function fetchData(endpoint) {
+                fetch(`/${endpoint}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('endpoint-content').innerHTML = '<h2>API Response</h2><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                    })
+                    .catch(error => {
+                        document.getElementById('endpoint-content').innerHTML = '<h2>Error</h2><p>Could not fetch data from the API. Please try again later.</p>';
+                    });
+            }
+        </script>
+    </body>
+    </html>
+    """)
 
 @app.route("/historical_prices", methods=["GET"])
 def get_historical_prices():
