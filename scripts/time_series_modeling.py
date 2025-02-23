@@ -31,7 +31,7 @@ def generate_forecasts(input_path, output_path):
     garch_forecast = np.sqrt(garch_model.forecast(start=len(df)-30).variance.values[-30:].squeeze())
     #garch_forecast = garch_model.forecast(start=len(df)-30).variance.values[-30:]
 
-    # Save results
+    # Save results 
     forecast_df = pd.DataFrame({
         "Date": pd.date_range(start=df.index[-1], periods=30, freq="D"),
         "ARIMA_Forecast": arima_forecast.values,
