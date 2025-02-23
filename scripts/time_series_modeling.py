@@ -28,7 +28,8 @@ def generate_forecasts(input_path, output_path):
 
     # Train GARCH model
     garch_model = train_garch_model(df['Price'])
-    garch_forecast = garch_model.forecast(start=len(df)-30).variance.values[-30:]
+    garch_forecast = np.sqrt(garch_model.forecast(start=len(df)-30).variance.values[-30:].squeeze())
+    #garch_forecast = garch_model.forecast(start=len(df)-30).variance.values[-30:]
 
     # Save results
     forecast_df = pd.DataFrame({
