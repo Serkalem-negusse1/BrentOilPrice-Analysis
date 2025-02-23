@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-import pymc3 as pm
+import pymc as pm
 import matplotlib.pyplot as plt
 
-def bayesian_change_point_detection(data):
+def bayesian_change_point_detection(data): 
     """Detects change points using Bayesian inference."""
     with pm.Model() as model:
         mean_1 = pm.Normal("mean_1", mu=data.mean(), sigma=data.std())
