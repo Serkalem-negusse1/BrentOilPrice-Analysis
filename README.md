@@ -24,3 +24,5 @@ It integrates **Change Point Detection**, **Time Series Modeling**, and **Extern
 git clone https://github.com/Serkalem-negusse1/BrentOilPrice-Analysis.git
 
 cd BrentOilPrice-Analysis
+![Dashboard](images/dashboard.png)
+![Dashboard](images/dashboard1.png)
